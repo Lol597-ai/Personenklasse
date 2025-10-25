@@ -1,0 +1,38 @@
+import  datetime
+class Personenklasse:
+    def __init__(self, Vorname, Nachname, Geburstag_str):
+        self.Vorname = Vorname
+        self.Nachname = Nachname
+        self.Geburtstag = datetime.datetime.strptime(Geburstag_str, "%d.%m.%Y").date()
+
+
+    def __str__(self):
+        return f"{self.Vorname} {self.Nachname}, geboren am {self.Geburtstag}"
+
+    def __repr__(self):
+        return self.__str__()
+
+    def alter(self):
+        heute = datetime.date.today()
+        alter = heute.year -self.Geburtstag.year
+        if (heute.month, heute.day) < (self.Geburtstag.month, self.Geburtstag.day):
+            alter-=1
+        return alter
+    def nächster_geburtstag(self):
+        heute = datetime.date.today()
+        jahr  = heute.year
+        nächster = datetime.date(jahr, self.Geburtstag.month, self.Geburtstag.day)
+        if nächster < heute:
+            nächster = datetime.date(jahr + 1, self.Geburtstag.month, self.Geburtstag.day)
+        return nächster.strftime("%d.%m.%Y")
+
+
+vorname = input("Vorname: ")
+nachname = input("Nachname: ")
+Geburstag = input("Geburstag: ")
+
+person = Personenklasse(vorname, nachname, Geburstag)
+print(person)
+
+print(f"Alter: {person.alter()} Jahre")
+print(f"Nächster Geburtstag: {person.nächster_geburtstag()}")
