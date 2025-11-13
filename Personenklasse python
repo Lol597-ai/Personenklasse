@@ -1,4 +1,5 @@
 import  datetime
+
 class Personenklasse:
     def __init__(self, Vorname, Nachname, Geburstag_str):
         self.Vorname = Vorname
@@ -14,7 +15,7 @@ class Personenklasse:
 
     def alter(self):
         heute = datetime.date.today()
-        alter = heute.year -self.Geburtstag.year
+        alter = heute.year - self.Geburtstag.year
         if (heute.month, heute.day) < (self.Geburtstag.month, self.Geburtstag.day):
             alter-=1
         return alter
@@ -22,9 +23,13 @@ class Personenklasse:
         heute = datetime.date.today()
         jahr  = heute.year
         nächster = datetime.date(jahr, self.Geburtstag.month, self.Geburtstag.day)
-        if nächster < heute:
+        if nächster == heute:
             nächster = datetime.date(jahr + 1, self.Geburtstag.month, self.Geburtstag.day)
-        return nächster.strftime("%d.%m.%Y")
+            alter = self.alter()
+            return nächster.strftime("%d.%m.%Y")
+        if nächster < heute:
+            nächster = datetime.date(jahr + 1, self.Geburtstag.month,  self.Geburtstag.day)
+        return nächster
 
 
 vorname = input("Vorname: ")
